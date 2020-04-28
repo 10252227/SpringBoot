@@ -1,11 +1,16 @@
 package com.yhz.sbd.modules.test.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -64,9 +69,11 @@ public class TestDemo {
 	/**
 	 * 
 	 * 搭建的springboot框架
+	 * http://127.0.0.1/test/Hello?key=fuck
 	 */
 	@RequestMapping("/Hello")
-	public String getName() {
-		return "Hello world,this is spring boot demo";
+	public String getName(HttpServletRequest request ,@RequestParam String key) {
+		String value2 = request.getParameter("value");
+		return "Hello world,this is spring boot demo" + key + "===" + value2;
 	}
 }
