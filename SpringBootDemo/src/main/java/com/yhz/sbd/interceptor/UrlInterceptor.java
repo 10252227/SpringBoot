@@ -3,6 +3,7 @@ package com.yhz.sbd.interceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,11 +21,14 @@ public class UrlInterceptor implements HandlerInterceptor{
 			ModelAndView modelAndView) throws Exception {
 
 		// TODO
+		if (modelAndView == null || modelAndView.getViewName().startsWith("redirect")) {
+			return;
+		}
 
 		String uri = request.getServletPath();
 		System.err.println("==============="+uri);
 		String template = (String) modelAndView.getModelMap().get("template");
-		if (template == null  || template == "") {
+		if (StringUtils.isBlank(template)) {
 			if (uri.startsWith("/")) {
 				uri = uri.substring(1);
 			}
